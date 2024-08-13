@@ -4,14 +4,15 @@ version = "0.1.0"
 description = "telegram bot for Obninsk Jobs Exhibition event"
 authors = ["WESHOK <gdvarta@gmail.com>"]
 readme = "README.md"
-package-mode = false
+package-mode = true
 
 [tool.poetry.dependencies]
 python = "^3.11"
 aiogram = "^3.10.0"
 aiogram-dialog = "^2.1.0"
 python-dotenv = "^1.0.1"
-surrealdb = "^0.3.2"
+sqlalchemy = "^2.0.32"
+alembic = "^1.13.2"
 
 [build-system]
 requires = ["poetry-core"]
