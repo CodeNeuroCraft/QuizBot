@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "quizbotredux"
+name = "QuizBotRedux"
 version = "0.1.0"
 description = "telegram bot for Obninsk Jobs Exhibition event"
 authors = ["WESHOK <gdvarta@gmail.com>"]
