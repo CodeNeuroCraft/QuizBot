@@ -13,6 +13,8 @@ aiogram-dialog = "^2.1.0"
 python-dotenv = "^1.0.1"
 sqlalchemy = "^2.0.32"
 alembic = "^1.13.2"
+asyncpg = "^0.29.0"
+sulguk = "^0.8.0"
 
 [build-system]
 requires = ["poetry-core"]

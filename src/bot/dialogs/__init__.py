@@ -1,7 +1,7 @@
 from aiogram import Dispatcher
 
 from .main_menu import main_menu_dialog
-from .main_menu import reg_dialog
+from .reg import reg_dialog
 
 
 def register_dialogs(dp: Dispatcher):
