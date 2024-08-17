@@ -5,11 +5,12 @@ from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import MessageInput
 from aiogram_dialog import ShowMode
 
+from src.db.quiz_user import QuizUserDAL
+from src.db.quiz_user import QuizUserORM
 from src.bot.states import Reg
+# from .getters import 
 
 
-        
-    
 async def close(
         callback: CallbackQuery,
         button: Button,
@@ -18,21 +19,14 @@ async def close(
     await manager.done()
 
 # База данных
-registrations = userDB()
+dal = QuizUserDAL()
 
 async def start(
         callback: CallbackQuery,
         button: Button,
         manager: DialogManager,
 ):
-    await registrations.open_session(callback.from_user)
-
-async def abort(
-        callback: CallbackQuery,
-        button: Button,
-        manager: DialogManager,
-):
-    await registrations.abort_session()
+    
 
 async def commit_data(
         callback: CallbackQuery,

@@ -78,7 +78,7 @@ def success_window():
         Button(
             Const('НАЗАД'),
             id='back',
-            on_click=on_event.to_main,
+            on_click=close,
         ),
         state=Reg.success,
     )
