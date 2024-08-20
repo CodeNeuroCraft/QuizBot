@@ -23,10 +23,11 @@ class QuizUserDAL:
         if self.__session:
             asyncio.create_task(self.__session.close())
 
-    async def create_user(self, id: int, school: str, parallel: str):
-        await self.__session.add(QuizUserORM(id=id, school=school, parallel=parallel))
+    async def create_user(self, data: dict):
+        await self.__session.add(QuizUserORM(id=dict.id, school=dict.school, parallel=dict.parallel))
         return await self.__session.commit()
     
+        
     async def delete_user(self, id: int):
         await self.__session.delete(QuizUserORM(id=id))
         return await self.__session.commit()

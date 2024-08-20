@@ -6,7 +6,6 @@ from aiogram_dialog.widgets.input import MessageInput
 from aiogram_dialog import ShowMode
 
 from src.db.quiz_user import QuizUserDAL
-from src.db.quiz_user import QuizUserORM
 from src.bot.states import Reg
 # from .getters import 
 
@@ -26,22 +25,33 @@ async def start(
         button: Button,
         manager: DialogManager,
 ):
-    
+    manager.dialog_data['user_input'] = {
+        'id': callback.message.from_user.id,
+        'school': None,
+        'parallel': None,
+    }
 
-async def commit_data(
+async def abort(
         callback: CallbackQuery,
         button: Button,
         manager: DialogManager,
 ):
-    await registrations.commit_session()
+    manager.dialog_data['user_input'] = None
+
+async def commit(
+        callback: CallbackQuery,
+        button: Button,
+        manager: DialogManager,
+):
+    await dal.create_user(manager.dialog_data['user_input'])
 
 async def process_school(
         message: Message,
         message_input: MessageInput,
         manager: DialogManager,
 ):
-    manager.show_mode=ShowMode.EDIT
-    await registrations.set_school(message.text)
+    manager.show_mode = ShowMode.EDIT
+    manager.dialog_data['user_input']['school'] = message.text
     await message.delete()
     await manager.switch_to(Reg.parallel)
 
@@ -50,7 +60,7 @@ async def process_parallel(
         message_input: MessageInput,
         manager: DialogManager,
 ):
-    manager.show_mode=ShowMode.EDIT
-    await registrations.set_parallel(message.text)
+    manager.show_mode = ShowMode.EDIT
+    manager.dialog_data['user_input']['parallel'] = message.text
     await message.delete()
     await manager.switch_to(Reg.check)

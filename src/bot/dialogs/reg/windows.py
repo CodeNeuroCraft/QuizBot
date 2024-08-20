@@ -8,12 +8,8 @@ from aiogram_dialog.widgets.text import Format
 from aiogram_dialog.widgets.input import MessageInput
 
 from src.bot.states import Reg
-from .on_click import start
-from .on_click import abort
-from .on_click import commit_data
-from .on_click import process_school
-from .on_click import process_parallel
-from .on_click import close
+from .on_click import *
+from .getters import *
 
 
 def confirm_window():
@@ -59,7 +55,7 @@ def check_window():
                 Const('ВСЁ ВЕРНО'),
                 id='success',
                 state=Reg.success,
-                on_click=commit_data
+                on_click=commit
             ),
             SwitchTo(
                 Const('ХРЕНЬ'),
@@ -68,7 +64,7 @@ def check_window():
                 on_click=abort
             ),
         ),
-        getter=on_event.registrations.get_session_data,
+        getter=check_window_get_data,
         state=Reg.check,
     )
 
