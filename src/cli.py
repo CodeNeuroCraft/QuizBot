@@ -17,12 +17,12 @@ async def run_bot():
 
     dp: Dispatcher = setup_dispatcher()
 
-    await logger.aerror(f"Starting bot, version: {getenv('VERSION')}")
+    await logger.aerror(f'Starting bot, version: {getenv('VERSION')}')
 
     try:
         await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
     except (KeyboardInterrupt, SystemExit):
-        await logger.error("Bot stopped!")
+        await logger.error('Bot stopped!')
 
 
 # @click.command()

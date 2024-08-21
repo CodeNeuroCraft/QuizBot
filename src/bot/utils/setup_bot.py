@@ -1,7 +1,6 @@
 from os import getenv
 
 from aiogram import Bot
-from aiogram.types import BotCommandScopeChat
 from sulguk import AiogramSulgukMiddleware
 
 

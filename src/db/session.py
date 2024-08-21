@@ -1,6 +1,4 @@
-import asyncio
 from os import getenv
-from typing import Optional
 
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from sqlalchemy.ext.asyncio import AsyncSession
