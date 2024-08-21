@@ -1,10 +1,11 @@
 from sqlalchemy import String
 from sqlalchemy import BigInteger
 from sqlalchemy import Column
-from sqlalchemy.orm import DeclarativeBase
+
+from ..base import Base
 
 
-class QuizUserORM(DeclarativeBase):
+class QuizUserORM(Base):
     __tablename__ = 'quiz_users'
 
     id = Column(BigInteger, primary_key=True)
