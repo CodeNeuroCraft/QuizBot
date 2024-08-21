@@ -5,20 +5,17 @@ from aiogram.fsm.state import State
 from aiogram.types import Message
 from aiogram.types import ReplyKeyboardRemove
 
-from ..filters import RoleFilter
-from ..filters import UserRole
 
-router = Router(name="common")
+router = Router(name='common')
 
 
 @router.message(
-    Command("cancel"),
-    RoleFilter(role=[UserRole.USER, UserRole.SUPERUSER]),
-    State(state="*"),
+    Command('cancel'),
+    State(state='*'),
 )
 async def cancel_handler(message: Message, state: FSMContext, **kwargs) -> None:
-    await message.answer(text="States cleared.", reply_markup=ReplyKeyboardRemove())
+    await message.answer(text='States cleared.', reply_markup=ReplyKeyboardRemove())
     await state.clear()
 
 
-__all__ = ["router"]
+__all__ = ['router']
