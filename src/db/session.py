@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 
 
 engine = create_async_engine(
-    f'postgresql+asyncpg://{getenv('DB_USER')}:{getenv('DB_PASSWORD')}@{getenv('DB_HOST')}:{int(getenv('DB_PORT'))}/quiz_accounts',
+    f'postgresql+asyncpg://{getenv("DB_USER")}:{getenv("DB_PASSWORD")}@{getenv("DB_HOST")}:{getenv("DB_PORT")}/quiz_accounts',
     future=True,
 )
 

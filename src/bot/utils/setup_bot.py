@@ -3,10 +3,14 @@ from os import getenv
 from aiogram import Bot
 from sulguk import AiogramSulgukMiddleware
 
+from src.config import BotConfig
 
-async def setup_bot() -> Bot:
+
+async def setup_bot(config: BotConfig) -> Bot:
     
-    bot: Bot = Bot(token=getenv('TOKEN'))
+    bot: Bot = Bot(
+        token=config.token.get_secret_value()
+    )
 
     # https://github.com/Tishka17/sulguk#example-for-aiogram-users
     bot.session.middleware(AiogramSulgukMiddleware())

@@ -1,37 +1,30 @@
-from os import getenv
-from typing import Optional
-
-import asyncclick as click
 from aiogram import Bot
 from aiogram import Dispatcher
-from dotenv import load_dotenv
 
 from src.bot import setup_bot
 from src.bot import setup_dispatcher
+from src.config import Config
+from src.config import load_config
+from src.constants import CONFIG_FILE_PATH
+from src.constants import VERSION
 from .logger import logger
 
-async def run_bot():
-    load_dotenv()
 
-    bot: Bot = await setup_bot()
+async def run_bot():
+    config: Config = load_config(config_path=CONFIG_FILE_PATH)
+
+    bot: Bot = await setup_bot(
+        config=config.bot
+    )
 
     dp: Dispatcher = setup_dispatcher()
 
-    await logger.aerror(f'Starting bot, version: {getenv('VERSION')}')
+    await logger.aerror(f'Starting bot, version: {VERSION}')
 
     try:
         await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
     except (KeyboardInterrupt, SystemExit):
         await logger.error('Bot stopped!')
-
-
-# @click.command()
-# @click.option("--telegram_id", help="TelegramID of User", type=int)
-# async def start(telegram_id: Optional[int] = None):
-#     if telegram_id is not None:
-#         await create_super_user(telegram_id=telegram_id)
-#     else:
-#         await run_bot()
 
 
 __all__ = ['start']
