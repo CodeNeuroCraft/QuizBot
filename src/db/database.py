@@ -21,7 +21,7 @@ class Database:
     '''Database class is the highest abstraction level of database and
     can be used in the handlers or any others bot-side functions.'''
 
-    user: QuizUserRepo
+    quiz_user: QuizUserRepo
 
     session: AsyncSession
 
@@ -31,4 +31,4 @@ class Database:
         user: QuizUserRepo = None,
     ):
         self.session = session
-        self.user = user or QuizUserRepo(session=session)
+        self.quiz_user = user or QuizUserRepo(session=session)

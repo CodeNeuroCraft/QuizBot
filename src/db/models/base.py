@@ -1,10 +1,8 @@
-from sqlalchemy import Integer
-from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import declared_attr
-from sqlalchemy.orm import mapped_column
 
 
-class Base:
+class Base(DeclarativeBase):
     '''Abstract model with declarative base functionality.'''
 
     @classmethod
@@ -18,7 +16,3 @@ class Base:
         return cls.__name__.lower()
 
     __allow_unmapped__ = False
-
-    id: Mapped[int] = mapped_column(
-        Integer, autoincrement=True, primary_key=True
-    )

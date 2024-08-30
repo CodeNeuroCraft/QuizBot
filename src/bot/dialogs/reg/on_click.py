@@ -1,3 +1,5 @@
+from typing import Dict
+
 from aiogram.types import Message
 from aiogram.types import CallbackQuery
 from aiogram_dialog import DialogManager
@@ -22,7 +24,7 @@ async def start(
         manager: DialogManager,
 ):
     manager.dialog_data['user_input'] = {
-        'id': callback.message.from_user.id,
+        'user_id': callback.message.from_user.id,
         'school': None,
         'parallel': None,
     }
@@ -40,7 +42,12 @@ async def commit(
         manager: DialogManager,
 ):
     db: Database = manager.middleware_data['db']
-    await db.user.new(manager.dialog_data['user_input'])
+    input: Dict = manager.dialog_data['user_input']
+    
+    await db.quiz_user.new(input['user_id'],
+                           input['school'],
+                           input['parallel']
+    )
 
 async def process_school(
         message: Message,
