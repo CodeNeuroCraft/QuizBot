@@ -5,9 +5,8 @@ from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import MessageInput
 from aiogram_dialog import ShowMode
 
-from src.db.quiz_user import QuizUserDAL
+from src.db.repos import QuizUserRepo
 from src.bot.states import Reg
-# from .getters import 
 
 
 async def close(
@@ -18,7 +17,7 @@ async def close(
     await manager.done()
 
 # База данных
-dal = QuizUserDAL()
+repo = QuizUserRepo()
 
 async def start(
         callback: CallbackQuery,
@@ -36,14 +35,14 @@ async def abort(
         button: Button,
         manager: DialogManager,
 ):
-    manager.dialog_data['user_input'] = None
+    manager.dialog_data.clear()
 
 async def commit(
         callback: CallbackQuery,
         button: Button,
         manager: DialogManager,
 ):
-    await dal.create_user(manager.dialog_data['user_input'])
+    await repo.new(manager.dialog_data['user_input'])
 
 async def process_school(
         message: Message,

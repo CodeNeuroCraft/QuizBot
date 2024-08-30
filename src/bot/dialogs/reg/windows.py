@@ -64,7 +64,7 @@ def check_window():
                 on_click=abort
             ),
         ),
-        getter=check_window_get_data,
+        getter=check_window_getter,
         state=Reg.check,
     )
 

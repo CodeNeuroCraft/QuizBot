@@ -5,7 +5,7 @@ from aiogram_dialog import setup_dialogs
 
 from ..dialogs import register_dialogs
 from ..handlers import register_handlers
-
+from ..middlewares import register_middlewares
 
 def setup_dispatcher() -> Dispatcher:
     
@@ -14,6 +14,7 @@ def setup_dispatcher() -> Dispatcher:
         events_isolation=SimpleEventIsolation(),
     )
 
+    register_middlewares(dp=dp)
     register_handlers(dp=dp)
     register_dialogs(dp=dp)
     setup_dialogs(dp)
