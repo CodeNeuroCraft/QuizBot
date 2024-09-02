@@ -19,7 +19,7 @@ async def run_bot():
 
     dp: Dispatcher = setup_dispatcher()
 
-    await logger.aerror(f'Starting bot, version: {VERSION}')
+    await logger.ainfo(f'Starting bot, version: {VERSION}')
 
     try:
         await dp.start_polling(

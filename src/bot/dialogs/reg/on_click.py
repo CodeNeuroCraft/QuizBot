@@ -44,9 +44,10 @@ async def commit(
     db: Database = manager.middleware_data['db']
     input: Dict = manager.dialog_data['user_input']
     
-    await db.quiz_user.new(input['user_id'],
-                           input['school'],
-                           input['parallel']
+    await db.quiz_user.new(
+        input['user_id'],
+        input['school'],
+        input['parallel'],
     )
 
 async def process_school(
