@@ -1,6 +1,7 @@
 from aiogram.types import ContentType
 from aiogram_dialog import Window
 from aiogram_dialog.widgets.media import StaticMedia
+from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.kbd import Row
 from aiogram_dialog.widgets.kbd import SwitchTo
 from aiogram_dialog.widgets.kbd import Start
@@ -8,6 +9,7 @@ from aiogram_dialog.widgets.text import Const
 
 from src.bot.states import MainMenu
 from src.bot.states import Reg
+from .on_event import *
 
 
 def welcome_window():
@@ -18,15 +20,15 @@ def welcome_window():
         ),
         Const('Добро пожаловать на викторину! Выберите пункт меню'),
         Row(
-            Start(
+            Button(
                 Const('Регистрация'),
                 id='reg',
-                state=Reg.confirm
+                on_click=check_user,
             ),
             SwitchTo(
                 Const('Помощь'),
                 id='help',
-                state=MainMenu.help
+                state=MainMenu.help,
             ),
         ),
         state=MainMenu.welcome,
@@ -38,7 +40,7 @@ def help_window():
         SwitchTo(
             Const('НАЗАД'),
             id='back',
-            state=MainMenu.welcome
+            state=MainMenu.welcome,
         ),
         state=MainMenu.help,
     )

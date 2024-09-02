@@ -24,7 +24,7 @@ async def start(
         manager: DialogManager,
 ):
     manager.dialog_data['user_input'] = {
-        'user_id': callback.message.from_user.id,
+        'user_id': callback.from_user.id,
         'school': None,
         'parallel': None,
     }
@@ -43,7 +43,7 @@ async def commit(
 ):
     db: Database = manager.middleware_data['db']
     input: Dict = manager.dialog_data['user_input']
-    
+
     await db.quiz_user.new(
         input['user_id'],
         input['school'],

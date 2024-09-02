@@ -26,3 +26,5 @@ class QuizUserRepo(Repository[QuizUser]):
                 parallel=parallel,
             )
         )
+
+        await self.session.commit()

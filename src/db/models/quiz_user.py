@@ -1,5 +1,5 @@
 from sqlalchemy import BigInteger
-from sqlalchemy import Text
+from sqlalchemy import VARCHAR
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .base import Base
@@ -15,8 +15,8 @@ class QuizUser(Base):
         BigInteger, primary_key=True, unique=True, nullable=False
     )
     school: Mapped[str] = mapped_column(
-        Text, unique=False, nullable=True
+        VARCHAR(255), unique=False, nullable=True
     )
     parallel: Mapped[str] = mapped_column(
-        Text, unique=False, nullable=True
+        VARCHAR(255), unique=False, nullable=True
     )
