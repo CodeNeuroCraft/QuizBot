@@ -8,6 +8,6 @@ class MainMenu(StatesGroup):
 class Reg(StatesGroup):
     confirm = State()
     school = State()
-    parallel = State()
+    grade = State()
     check = State()
     success = State()

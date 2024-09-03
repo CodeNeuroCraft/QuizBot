@@ -20,7 +20,7 @@ async def check_user(
     if await db.quiz_user.get(user.id) == None:
         await manager.start(Reg.confirm)
     else:
-        await callback.answer('ты уже в базе, сладенький)')
+        await callback.answer('мы уже в курсе о том, где ты учишься, сладенький)')
 
 
 __all__ = ['check_user']

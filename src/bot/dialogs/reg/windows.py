@@ -40,16 +40,16 @@ def school_window():
 
 def parallel_window():
     return Window(
-        Const('Введите вашу параллель:'),
+        Const('Введите ваш класс:'),
         MessageInput(process_parallel, content_types=[ContentType.TEXT]),
-        state=Reg.parallel,
+        state=Reg.grade,
     )
 
 def check_window():
     return Window(
         Const('Введенные данные:'),
-        Format('Школа: {school};'),
-        Format('Параллель: {parallel};'),
+        Format('Школа: {school}'),
+        Format('Класс: {grade}'),
         Row(
             SwitchTo(
                 Const('ВСЁ ВЕРНО'),

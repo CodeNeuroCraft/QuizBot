@@ -15,7 +15,7 @@ class QuizUserRepo(Repository[QuizUser]):
         self,
         user_id: int,
         school: str,
-        parallel: str,
+        grade: str,
     ) -> None:
         '''Insert a new quiz_user into the database.'''
 
@@ -23,7 +23,7 @@ class QuizUserRepo(Repository[QuizUser]):
             QuizUser(
                 user_id=user_id,
                 school=school,
-                parallel=parallel,
+                grade=grade,
             )
         )
 

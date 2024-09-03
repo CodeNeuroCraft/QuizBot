@@ -17,6 +17,6 @@ class QuizUser(Base):
     school: Mapped[str] = mapped_column(
         VARCHAR(255), unique=False, nullable=True
     )
-    parallel: Mapped[str] = mapped_column(
+    grade: Mapped[str] = mapped_column(
         VARCHAR(255), unique=False, nullable=True
     )

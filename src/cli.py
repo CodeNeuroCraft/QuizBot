@@ -29,7 +29,7 @@ async def run_bot():
                 engine=create_async_engine(url=config.db.build_connection_str())
             ),
         )
-    except (KeyboardInterrupt, SystemExit):
+    except KeyboardInterrupt:
         await logger.error('Bot stopped!')
 
 

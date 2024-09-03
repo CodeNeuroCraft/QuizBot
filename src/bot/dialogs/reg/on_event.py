@@ -26,7 +26,7 @@ async def start(
     manager.dialog_data['user_input'] = {
         'user_id': callback.from_user.id,
         'school': None,
-        'parallel': None,
+        'grade': None,
     }
 
 async def abort(
@@ -47,7 +47,7 @@ async def commit(
     await db.quiz_user.new(
         input['user_id'],
         input['school'],
-        input['parallel'],
+        input['grade'],
     )
 
 async def process_school(
@@ -58,7 +58,7 @@ async def process_school(
     manager.show_mode = ShowMode.EDIT
     manager.dialog_data['user_input']['school'] = message.text
     await message.delete()
-    await manager.switch_to(Reg.parallel)
+    await manager.switch_to(Reg.grade)
 
 async def process_parallel(
         message: Message,
@@ -66,6 +66,6 @@ async def process_parallel(
         manager: DialogManager,
 ):
     manager.show_mode = ShowMode.EDIT
-    manager.dialog_data['user_input']['parallel'] = message.text
+    manager.dialog_data['user_input']['grade'] = message.text
     await message.delete()
     await manager.switch_to(Reg.check)
