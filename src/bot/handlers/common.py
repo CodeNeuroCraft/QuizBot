@@ -29,4 +29,4 @@ async def prevent_typing(message: Message, state: FSMContext, **kwargs):
     await message.delete()
 
 
-__all__ = ['router']
+__all__ = ['common']
