@@ -33,7 +33,7 @@ async def prevent_typing(message: Message, state: FSMContext, **kwargs):
 
 @common.message(Reg.grade)
 async def select_grade(message: Message, state: FSMContext, **kwargs):
-    
+
 
 
 __all__ = ['common']
