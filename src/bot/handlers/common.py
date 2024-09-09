@@ -1,8 +1,6 @@
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from aiogram.types import ReplyKeyboardMarkup
-from aiogram.types import KeyboardButton
 from aiogram.filters import CommandStart
 from aiogram.filters import StateFilter
 from aiogram_dialog import DialogManager
@@ -28,12 +26,7 @@ async def start(message: Message, dialog_manager: DialogManager):
         )
 )
 async def prevent_typing(message: Message, state: FSMContext, **kwargs):
-    print('debug')
     await message.delete()
-
-@common.message(Reg.grade)
-async def select_grade(message: Message, state: FSMContext, **kwargs):
-
 
 
 __all__ = ['common']
