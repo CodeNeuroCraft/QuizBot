@@ -7,6 +7,7 @@ from aiogram_dialog.widgets.markup.reply_keyboard import ReplyKeyboardFactory
 from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.text import Format
 from aiogram_dialog.widgets.input import MessageInput
+from aiogram_dialog.widgets.input import TextInput
 
 from src.bot.states import Reg
 from .on_event import *
@@ -45,18 +46,20 @@ def parallel_window():
         Row(
             Button(
                 Const('8'),
-                id='8_grade',
+                id='grade_8',
             ),
             Button(
                 Const('9'),
-                id='9_grade',
+                id='grade_9',
             ),
         ),
         MessageInput(process_parallel, content_types=[ContentType.TEXT]),
+        TextInput()
         state=Reg.grade,
         markup_factory=ReplyKeyboardFactory(
             resize_keyboard=True,
             one_time_keyboard=True,
+            is_persistent=True,
         ),
     )
 
