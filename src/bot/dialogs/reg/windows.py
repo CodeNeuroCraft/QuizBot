@@ -3,6 +3,7 @@ from aiogram_dialog import Window
 from aiogram_dialog.widgets.kbd import Row
 from aiogram_dialog.widgets.kbd import SwitchTo
 from aiogram_dialog.widgets.kbd import Button
+from aiogram_dialog.widgets.markup.reply_keyboard import ReplyKeyboardFactory
 from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.text import Format
 from aiogram_dialog.widgets.input import MessageInput
@@ -41,8 +42,22 @@ def school_window():
 def parallel_window():
     return Window(
         Const('Введите ваш класс:'),
+        Row(
+            Button(
+                Const('8'),
+                id='8_grade',
+            ),
+            Button(
+                Const('9'),
+                id='9_grade',
+            ),
+        ),
         MessageInput(process_parallel, content_types=[ContentType.TEXT]),
         state=Reg.grade,
+        markup_factory=ReplyKeyboardFactory(
+            resize_keyboard=True,
+            one_time_keyboard=True,
+        ),
     )
 
 def check_window():
