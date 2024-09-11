@@ -9,7 +9,7 @@ async def on_unknown_intent(event: ErrorEvent, dialog_manager: DialogManager) ->
     '''Example of handling UnknownIntent Error and starting new dialog.'''
     if event.update.callback_query:
         await event.update.callback_query.answer(
-            'Bot process was restarted due to maintenance.\n' 'Try again.',
+            'Процесс бота был перезапущен во время тех. поддержки.\n' 'Попробуйте снова.',
         )
         try:
             await event.update.callback_query.message.delete()

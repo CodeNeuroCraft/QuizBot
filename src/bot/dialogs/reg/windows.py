@@ -34,6 +34,11 @@ def confirm_window():
 def school_window():
     return Window(
         Const('Введите вашу школу:'),
+        TextInput(
+            id='grade',
+            on_success=success_grade,
+            type_factory=int,
+        ),
         state=Reg.school,
     )
 
@@ -44,16 +49,18 @@ def grade_window():
             Button(
                 Const('8'),
                 id='grade_8',
-                on_click=
+                on_click=process_grade,
             ),
             Button(
                 Const('9'),
                 id='grade_9',
+                on_click=process_grade,
             ),
         ),
         TextInput(
             id='grade',
-            on_success=success_grade,
+            on_success=process_grade,
+            
             type_factory=int,
         ),
         state=Reg.grade,
@@ -67,7 +74,7 @@ def grade_window():
 def check_window():
     return Window(
         Const('Введенные данные:'),
-        Format('Школа: {school}'),
+        # Format('Школа: {school}'),
         Format('Класс: {grade}'),
         Row(
             SwitchTo(

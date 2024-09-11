@@ -9,5 +9,6 @@ class Reg(StatesGroup):
     confirm = State()
     school = State()
     grade = State()
+    error_grade = State()
     check = State()
     success = State()

@@ -16,17 +16,5 @@ common = Router()
 async def start(message: Message, dialog_manager: DialogManager):
     await dialog_manager.start(MainMenu.welcome, mode=StartMode.RESET_STACK)
 
-@common.message(
-        StateFilter(
-            MainMenu.welcome,
-            MainMenu.help,
-            Reg.confirm,
-            Reg.check,
-            Reg.success,
-        )
-)
-async def prevent_typing(message: Message, state: FSMContext, **kwargs):
-    await message.delete()
-
 
 __all__ = ['common']

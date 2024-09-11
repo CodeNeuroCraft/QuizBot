@@ -22,7 +22,11 @@ async def start(
         button: Button,
         manager: DialogManager,
 ):
-    manager.dialog_data['user_id'] = callback.from_user.id
+    manager.dialog_data['input'] = {
+        'user_id': callback.from_user.id,
+        'school': None,
+        'grade': None,
+    }
 
 async def restart(
         callback: CallbackQuery,
@@ -47,39 +51,19 @@ async def process_school(
         manager: DialogManager,
 ):
     manager.show_mode = ShowMode.EDIT
+    manager.dialog_data['input'] = callback.message.text
     await callback.message.delete()
-    await manager.switch_to(Reg.grade)
+    await manager.switch_to(Reg.check)
 
-async def process_school(
+async def process_grade(
         callback: CallbackQuery,
         button: Button,
         manager: DialogManager,
 ):
     manager.show_mode = ShowMode.EDIT
-    manager.dialog_data[]
+    manager.dialog_data['input'] = callback.message.text
     await callback.message.delete()
-    await manager.switch_to(Reg.check)
-
-
-# async def success_school(
-#         message: Message,
-#         dialog_: Any,
-#         manager: DialogManager,
-#         error_: ValueError,
-# ):
-#     manager.show_mode = ShowMode.EDIT
-#     await message.delete()
-#     await manager.switch_to(Reg.grade)
-
-# async def success_grade(
-#         message: Message,
-#         dialog_: Any,
-#         manager: DialogManager,
-#         error_: ValueError,
-# ):
-#     manager.show_mode = ShowMode.EDIT
-#     await message.delete()
-#     await manager.switch_to(Reg.check)
+    await manager.switch_to(Reg.grade)
 
 # async def on_error_parallel(
 #         message: Message,
