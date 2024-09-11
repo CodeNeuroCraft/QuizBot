@@ -1,10 +1,9 @@
-from typing import Dict
+from typing import Any
 
 from aiogram.types import Message
 from aiogram.types import CallbackQuery
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.kbd import Button
-from aiogram_dialog.widgets.input import MessageInput
 from aiogram_dialog import ShowMode
 
 from src.bot.states import Reg
@@ -23,13 +22,9 @@ async def start(
         button: Button,
         manager: DialogManager,
 ):
-    manager.dialog_data['user_input'] = {
-        'user_id': callback.from_user.id,
-        'school': None,
-        'grade': None,
-    }
+    manager.dialog_data['user_id'] = callback.from_user.id
 
-async def abort(
+async def restart(
         callback: CallbackQuery,
         button: Button,
         manager: DialogManager,
@@ -42,30 +37,53 @@ async def commit(
         manager: DialogManager,
 ):
     db: Database = manager.middleware_data['db']
-    input: Dict = manager.dialog_data['user_input']
+    input_ = manager.dialog_data['input']
 
-    await db.quiz_user.new(
-        input['user_id'],
-        input['school'],
-        input['grade'],
-    )
+    await db.quiz_user.from_dict(input_)
 
 async def process_school(
-        message: Message,
-        message_input: MessageInput,
+        callback: CallbackQuery,
+        button: Button,
         manager: DialogManager,
 ):
     manager.show_mode = ShowMode.EDIT
-    manager.dialog_data['user_input']['school'] = message.text
-    await message.delete()
+    await callback.message.delete()
     await manager.switch_to(Reg.grade)
 
-async def process_parallel(
-        message: Message,
-        message_input: MessageInput,
+async def process_school(
+        callback: CallbackQuery,
+        button: Button,
         manager: DialogManager,
 ):
     manager.show_mode = ShowMode.EDIT
-    manager.dialog_data['user_input']['grade'] = message.text
-    await message.delete()
+    manager.dialog_data[]
+    await callback.message.delete()
     await manager.switch_to(Reg.check)
+
+
+# async def success_school(
+#         message: Message,
+#         dialog_: Any,
+#         manager: DialogManager,
+#         error_: ValueError,
+# ):
+#     manager.show_mode = ShowMode.EDIT
+#     await message.delete()
+#     await manager.switch_to(Reg.grade)
+
+# async def success_grade(
+#         message: Message,
+#         dialog_: Any,
+#         manager: DialogManager,
+#         error_: ValueError,
+# ):
+#     manager.show_mode = ShowMode.EDIT
+#     await message.delete()
+#     await manager.switch_to(Reg.check)
+
+# async def on_error_parallel(
+#         message: Message,
+#         manager: DialogManager,
+#         **kwargs,
+# ):
+#     await message.answer('Класс должен быть числом!')

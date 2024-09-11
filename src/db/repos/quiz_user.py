@@ -9,6 +9,7 @@ class QuizUserRepo(Repository[QuizUser]):
 
     def __init__(self, session: AsyncSession):
         '''Initialize user repository as for all users or only for one user.'''
+
         super().__init__(type_model=QuizUser, session=session)
 
     async def new(
@@ -16,7 +17,7 @@ class QuizUserRepo(Repository[QuizUser]):
         user_id: int,
         school: str,
         grade: str,
-    ) -> None:
+    ):
         '''Insert a new quiz_user into the database.'''
 
         await self.session.merge(
@@ -28,3 +29,12 @@ class QuizUserRepo(Repository[QuizUser]):
         )
 
         await self.session.commit()
+
+    async def from_dict(self, data: dict):
+        '''Wrapper for 'new' method.'''
+
+        await self.new(
+            data['user_id'],
+            data['school'],
+            data['grade'],
+        )
