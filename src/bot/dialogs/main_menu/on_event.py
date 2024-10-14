@@ -1,4 +1,4 @@
-from typing import Dict
+import asyncio
 
 from aiogram.types import User
 from aiogram.types import CallbackQuery
@@ -18,9 +18,9 @@ async def check_user(
     user: User = manager.middleware_data['event_from_user']
 
     if await db.quiz_user.get(user.id) == None:
-        await manager.start(Reg.confirm)
-    else:
-        await callback.answer('мы уже в курсе о том, где ты учишься, сладенький)')
+        return True
+    
+    return False
 
 
 __all__ = ['check_user']

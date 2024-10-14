@@ -1,21 +1,13 @@
-from typing import Any
-
 from aiogram.types import Message
 from aiogram.types import CallbackQuery
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.kbd import Button
+from aiogram_dialog.widgets.input import MessageInput
 from aiogram_dialog import ShowMode
 
 from src.bot.states import Reg
 from src.db.database import Database
 
-
-async def close(
-        callback: CallbackQuery,
-        button: Button,
-        manager: DialogManager
-):
-    await manager.done()
 
 async def start(
         callback: CallbackQuery,
@@ -46,14 +38,14 @@ async def commit(
     await db.quiz_user.from_dict(input_)
 
 async def process_school(
-        callback: CallbackQuery,
-        button: Button,
+        message: Message,
+        message_input: MessageInput,
         manager: DialogManager,
 ):
     manager.show_mode = ShowMode.EDIT
-    manager.dialog_data['input'] = callback.message.text
-    await callback.message.delete()
-    await manager.switch_to(Reg.check)
+    manager.dialog_data['input']['school'] = message.text
+    await message.delete()
+    await manager.switch_to(Reg.grade)
 
 async def process_grade(
         callback: CallbackQuery,
@@ -61,13 +53,6 @@ async def process_grade(
         manager: DialogManager,
 ):
     manager.show_mode = ShowMode.EDIT
-    manager.dialog_data['input'] = callback.message.text
+    manager.dialog_data['input']['grade'] = button.widget_id[-1]
     await callback.message.delete()
-    await manager.switch_to(Reg.grade)
-
-# async def on_error_parallel(
-#         message: Message,
-#         manager: DialogManager,
-#         **kwargs,
-# ):
-#     await message.answer('Класс должен быть числом!')
+    await manager.switch_to(Reg.check)

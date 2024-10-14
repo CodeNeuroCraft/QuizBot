@@ -1,3 +1,5 @@
+import asyncio
+
 from aiogram.types import ContentType
 from aiogram_dialog import Window
 from aiogram_dialog.widgets.media import StaticMedia
@@ -18,12 +20,13 @@ def welcome_window():
             url='https://downloader.disk.yandex.ru/preview/a2db807363a125c36e093c96d62c51fbc6285868179286ba3e670c83f2ee2b2f/667b2587/R62WU8dtk7-Q0djji7n-cmxE-rn890DjbBvDmq6ghcaYktDbn6tkZFArOExvqcvTbhQWrZ6Z6FOTcyT3jT8zNQ%3D%3D?uid=0&filename=onwhite_ver.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1920x918',
             type=ContentType.PHOTO
         ),
-        Const('Добро пожаловать на викторину! Выберите пункт меню'),
+        Const('Добро пожаловать на викторину! Выберите пункт меню:'),
         Row(
-            Button(
+            Start(
                 Const('Регистрация'),
                 id='reg',
-                on_click=check_user,
+                state=Reg.confirm,
+                when=check_user,
             ),
             SwitchTo(
                 Const('Помощь'),

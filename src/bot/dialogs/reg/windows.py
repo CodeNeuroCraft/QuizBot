@@ -1,11 +1,12 @@
+from aiogram.types import ContentType
 from aiogram_dialog import Window
 from aiogram_dialog.widgets.kbd import Row
 from aiogram_dialog.widgets.kbd import SwitchTo
 from aiogram_dialog.widgets.kbd import Button
-from aiogram_dialog.widgets.markup.reply_keyboard import ReplyKeyboardFactory
 from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.text import Format
-from aiogram_dialog.widgets.input import TextInput
+from aiogram_dialog.widgets.input import MessageInput
+from aiogram_dialog.widgets.kbd import Cancel
 
 from src.bot.states import Reg
 from .on_event import *
@@ -22,10 +23,9 @@ def confirm_window():
                 state=Reg.school,
                 on_click=start,
             ),
-            Button(
+            Cancel(
                 Const('НЕТ'),
                 id='back',
-                on_click=close,
             ),
         ),
         state=Reg.confirm,
@@ -34,11 +34,7 @@ def confirm_window():
 def school_window():
     return Window(
         Const('Введите вашу школу:'),
-        TextInput(
-            id='grade',
-            on_success=success_grade,
-            type_factory=int,
-        ),
+        MessageInput(process_school, content_types=[ContentType.TEXT]),
         state=Reg.school,
     )
 
@@ -47,34 +43,23 @@ def grade_window():
         Const('Введите ваш класс:'),
         Row(
             Button(
-                Const('8'),
+                Const('🎱8'),
                 id='grade_8',
                 on_click=process_grade,
             ),
             Button(
-                Const('9'),
+                Const('⚖9'),
                 id='grade_9',
                 on_click=process_grade,
             ),
         ),
-        TextInput(
-            id='grade',
-            on_success=process_grade,
-            
-            type_factory=int,
-        ),
         state=Reg.grade,
-        markup_factory=ReplyKeyboardFactory(
-            resize_keyboard=True,
-            one_time_keyboard=True,
-            is_persistent=True,
-        ),
     )
 
 def check_window():
     return Window(
         Const('Введенные данные:'),
-        # Format('Школа: {school}'),
+        Format('Школа: {school}'),
         Format('Класс: {grade}'),
         Row(
             SwitchTo(
@@ -84,7 +69,7 @@ def check_window():
                 on_click=commit,
             ),
             SwitchTo(
-                Const('ХРЕНЬ'),
+                Const('ЕСТЬ ОШИБКИ'),
                 id='confirm',
                 state=Reg.confirm,
                 on_click=restart,
@@ -97,10 +82,9 @@ def check_window():
 def success_window():
     return Window(
         Const('Вы успешно зарегистрированы!'),
-        Button(
+        Cancel(
             Const('НАЗАД'),
             id='back',
-            on_click=close,
         ),
         state=Reg.success,
     )
