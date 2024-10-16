@@ -1,6 +1,7 @@
 import asyncio
 
 from aiogram.types import ContentType
+from aiogram import F
 from aiogram_dialog import Window
 from aiogram_dialog.widgets.media import StaticMedia
 from aiogram_dialog.widgets.kbd import Button
@@ -11,7 +12,7 @@ from aiogram_dialog.widgets.text import Const
 
 from src.bot.states import MainMenu
 from src.bot.states import Reg
-from .on_event import *
+from .getters import *
 
 
 def welcome_window():
@@ -26,7 +27,7 @@ def welcome_window():
                 Const('Регистрация'),
                 id='reg',
                 state=Reg.confirm,
-                when=check_user,
+                when=~F['is_db_user'],
             ),
             SwitchTo(
                 Const('Помощь'),
@@ -34,6 +35,7 @@ def welcome_window():
                 state=MainMenu.help,
             ),
         ),
+        getter=check_user_getter,
         state=MainMenu.welcome,
     )
 
